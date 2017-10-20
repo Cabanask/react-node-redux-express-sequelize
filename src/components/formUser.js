@@ -60,8 +60,7 @@ const FormUser = React.createClass({
           value={this.state.firstname}
           onChange={this.handleChangeFirstname}
         />
-        <label>name:{this.state.name}</label>
-        <label>firstname:{this.state.firstname}</label>
+        <h1>sdsdds</h1>
         <RaisedButton   label={"submit"} onClick={this.handleSubmit}/>
       </div>
     );
