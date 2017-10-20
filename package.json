@@ -33,11 +33,14 @@
     "tedious": "^2.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.6.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "jest": "21.1.0",
-    "react-scripts": "1.0.0",
-    "babel-polyfill": "^6.6.1",
-    "jest-cli": "^0.9.0"
+    "jest-cli": "^0.9.0",
+    "react-scripts": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

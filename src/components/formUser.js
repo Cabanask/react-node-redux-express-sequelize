@@ -34,10 +34,9 @@ const FormUser = React.createClass({
     this.setState({firstname:e.target.value});
   },
   handleSubmit: function () {
-    let user = {firstname: this.state.firstname , name:this.state.name};
+    let user = {firstName: this.state.firstname , lastName:this.state.name};
     console.log('user',user)
-
-   this.props.addUser(user)
+    this.props.addUser(user)
   },
   componentDidMount: function () {
     

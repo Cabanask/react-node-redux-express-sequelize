@@ -5,6 +5,7 @@ const session = require('cookie-session'); // Charge le middleware de sessions
 const Sequelize = require('sequelize');
 const app = express();
 const bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
+//const ADD_USER = require('./apiUsers'); 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 /* On utilise les sessions */
 //app.use(session({secret: 'todotopsecret'}))
@@ -67,13 +68,13 @@ User.findOne().then(user => {
   console.log(user.get('firstName'));
 });
 // Setup logger
-app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 /* Gestion des routes en-dessous */
 
 /*Get all user*/
+app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api/users/all', function(req, res) { 
 	res.setHeader('Content-Type', 'application/json');
 	User.findAll().then(users => {
@@ -83,14 +84,19 @@ app.get('/api/users/all', function(req, res) {
 })
 
 /*Creat User*/
-app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 
 app.post('/api/users/add', function(req, res){
-
-	console.log("BODY POST USER",req.body)
 	res.setHeader('Content-Type', 'application/json');
+  User.sync({force: false}).then(() => {
+  // Table created
+  return User.create(req.body);
+  });
 	res.send(JSON.stringify(req.body));
 });
 

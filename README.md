@@ -1,4 +1,4 @@
-1 - Créer base de donnée.
+1 - Créer base de données.
 
 
 2 - Ajouter les infos de la bdd dans /server/app.js ( new Sequelize('bdd', 'root', 'root',  )

@@ -67,7 +67,7 @@ export function addUser(objUser) {
       let url ='http://localhost:9000/api/users/add';
       const response = await fetch(url, {
         method: 'POST',
-        header:'application/json', 'Content-Type': 'application/json',
+        headers:{Accept: 'application/json', 'Content-Type': 'application/json',  },
         body:jsonPost,
       });
       const data = await response.json();
