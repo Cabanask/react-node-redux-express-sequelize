@@ -7,7 +7,7 @@
 
 import React from 'react';
 import MenuDrawer from '../components/menuDrawer';
-import {LOGO_VP_1} from '../constants/link';
+//import {} from '../constants/link';
 
 const Header = React.createClass({
 

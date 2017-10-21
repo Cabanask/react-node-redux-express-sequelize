@@ -6,8 +6,6 @@
  */
 
 import React from 'react';
-import ListPersonages from '../components/listPersonages';
-import FormUser from '../components/formUser';
 
 
 const Home = React.createClass({
@@ -32,8 +30,7 @@ const Home = React.createClass({
   render() {
     return (
       <div className="container"> 
-        <FormUser />
-        <ListPersonages />
+      <h1>Home</h1>
       </div>    
     );
   }

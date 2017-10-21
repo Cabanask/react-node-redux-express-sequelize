@@ -10,6 +10,10 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from "react-router-dom";
 import MenuIcone from 'material-ui/svg-icons/navigation/menu';
+import {
+  ROUTE_HOME,
+  ROUTE_CRUD_USER,
+} from '../constants/routes';
 
 const menuDrawer = React.createClass({
 
@@ -50,7 +54,8 @@ const menuDrawer = React.createClass({
         disableSwipeToOpen={false}
         onRequestChange={this.handleToggle}
         >
-          <Link onClick={this.handleToggle} to="/"><MenuItem>Home</MenuItem></Link>
+          <Link onClick={this.handleToggle} to={ROUTE_HOME}><MenuItem>Home</MenuItem></Link>
+          <Link onClick={this.handleToggle} to={ROUTE_CRUD_USER}><MenuItem>CRUD Users</MenuItem></Link>
         </Drawer>
       </div>
     );

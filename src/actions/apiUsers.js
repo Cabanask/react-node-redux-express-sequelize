@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import { API_PUBLIC, API_PRIVATE, characters, baseUrl } from '../constants/ApiEndPoint';
+//import {} from '../constants/ApiEndPoint';
 import { convertDateToTimeStamp, creatHash } from '../utils/apiUtils';
 import md5 from 'js-md5';
 import {
@@ -9,6 +9,9 @@ import {
   ADD_USER_START,
   ADD_USER_SUCESS,
   ADD_USER_ERROR,
+  DELETE_USER_BYID_START,
+  DELETE_USER_BYID_SUCESS,
+  DELETE_USER_BYID_ERROR,
 } from '../constants/redux'
 
 
@@ -99,3 +102,44 @@ export function addUser(objUser) {
   };
 }
 
+export function deleteUserById(id) {
+  return async (dispatch) => {
+    dispatch({
+      type: DELETE_USER_BYID_START,
+      payload: {
+      },
+    });
+    try {
+      
+      let url ='http://localhost:9000/api/users/'+ String(id);
+      const response = await fetch(url, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        dispatch({
+          type: DELETE_USER_BYID_ERROR,
+          payload: {
+            data,
+          },
+        });
+      } else {
+        dispatch({
+          type: DELETE_USER_BYID_SUCESS,
+          payload: {
+            data,
+          },
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: DELETE_USER_BYID_ERROR,
+        payload: {
+          error,
+        },
+      });
+      return false;
+    } 
+    return true;
+  };
+}
