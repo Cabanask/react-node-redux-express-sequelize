@@ -1,10 +1,10 @@
-﻿1 - Créer base de données.
+﻿1 - Créer une  base de données.
 
 
-2 - Ajouter les infos de la bdd dans /server/app.js ( new Sequelize('bdd', 'root', 'root',  )
+2 - Ajouter les infos de la bdd dans /lib/configServer.js
 
 
-3 -  npm install
+3 - npm install
 
 
 4 - npm start 
