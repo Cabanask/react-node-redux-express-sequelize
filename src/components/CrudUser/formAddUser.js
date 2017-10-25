@@ -8,7 +8,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {  getAllUsers,addUser,deleteUserById } from '../../actions/apiUsers';
+import {  getAllUsers,addUser,deleteUserById,changeRoute,updateUserById } from '../../actions/apiUsers';
 import CircularProgress from 'material-ui/CircularProgress';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,6 +18,7 @@ const FormAddUser = React.createClass({
   getInitialState:function() {
    
     return {
+      userId:null,
       lastName:'',
       firstName:'',
       description:'',
@@ -31,6 +32,9 @@ const FormAddUser = React.createClass({
   handleChangeName: function (e,index,value) {
     this.setState({lastName:e.target.value});
   },
+  handleChangeUserId: function (e,index,value) {
+    this.setState({userId:e.target.value});
+  },
   handleChangeFirstname: function (e,index,value) {
     this.setState({firstName:e.target.value});
   },
@@ -41,6 +45,10 @@ const FormAddUser = React.createClass({
     let user = {firstName: this.state.firstName , lastName:this.state.lastName,description:this.state.description};
     this.setState({isFetchingAddUser:true});
     this.props.addUser(user);
+  },
+  handleUpdateUser: function () {
+    let user = {id:Number(this.state.userId),firstName: this.state.firstName , lastName:this.state.lastName,description:this.state.description};
+    this.props.updateUserById(user,this.state.userId);
   },
   handlegetAllUser: function () {
     this.setState({isFetchingGetAllUser:true});
@@ -82,9 +90,15 @@ const FormAddUser = React.createClass({
               value={this.state.description}
               onChange={this.handleChangeDescription}
             />
+            <TextField   
+              floatingLabelText={"ID FOR PUT"}
+              value={this.state.userId}
+              onChange={this.handleChangeUserId}
+            />
           </div> 
           <div className="container_Form_User_Body"> 
             <RaisedButton  label={"submit"} onClick={this.handleSubmit}/>
+            <RaisedButton  label={"Mettre à jour"} onClick={this.handleUpdateUser}/>
           </div>
         </Paper>
       </div>
@@ -105,6 +119,8 @@ function matchDispatchToProps(dispatch) {
       getAllUsers,
       addUser,
       deleteUserById,
+      changeRoute,
+      updateUserById,
     },
     dispatch,
   );

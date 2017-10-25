@@ -5,57 +5,45 @@ import {BASE_URL} from '../constants/ApiEndPoint';
 import { convertDateToTimeStamp, creatHash } from '../utils/apiUtils';
 import md5 from 'js-md5';
 import {
-  GET_ALL_USERS_START,
-  GET_ALL_USERS_SUCESS,
-  GET_ALL_USERS_ERROR,
-  ADD_USER_START,
-  ADD_USER_SUCESS,
-  ADD_USER_ERROR,
-  UDPATE_USER_BYID_START,
-  UDPATE_USER_BYID_SUCESS,
-  UDPATE_USER_BYID_ERROR,
-  DELETE_USER_BYID_START,
-  DELETE_USER_BYID_SUCESS,
-  DELETE_USER_BYID_ERROR,
-  CHANGE_ROUTE,
+  GET_ALL_PRODUCT_START,
+  GET_ALL_PRODUCT_SUCESS,
+  GET_ALL_PRODUCT_ERROR,
+  ADD_PRODUCT_START,
+  ADD_PRODUCT_SUCESS,
+  ADD_PRODUCT_ERROR,
+  UPDATE_PRODUCT_BYID_START,
+  UPDATE_PRODUCT_BYID_SUCESS,
+  UPDATE_PRODUCT_BYID_ERROR,
+  DELETE_PRODUCT_BYID_START,
+  DELETE_PRODUCT_BYID_SUCESS,
+  DELETE_PRODUCT_BYID_ERROR,
 } from '../constants/redux'
 
-export function changeRoute() {
-  let route = {path:'/toto',components:Home};
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_ROUTE,
-      payload: {
-        route,
-      },
-    });
-  }
-}
 
-export function getAllUsers() {
+export function getAllProducts() {
   return async (dispatch) => {
     dispatch({
-      type: GET_ALL_USERS_START,
+      type: GET_ALL_PRODUCT_START,
       payload: {
       },
     });
     try {
       
-      let url = BASE_URL + '/api/users/all';
+      let url = BASE_URL + '/api/product/all';
       const response = await fetch(url, {
         method: 'GET',
       });
       const data = await response.json();
       if (!response.ok) {
         dispatch({
-          type: GET_ALL_USERS_ERROR,
+          type: GET_ALL_PRODUCT_ERROR,
           payload: {
             data,
           },
         });
       } else {
         dispatch({
-          type: GET_ALL_USERS_SUCESS,
+          type: GET_ALL_PRODUCT_SUCESS,
           payload: {
             data,
           },
@@ -63,7 +51,7 @@ export function getAllUsers() {
       }
     } catch (error) {
       dispatch({
-        type: GET_ALL_USERS_ERROR,
+        type: GET_ALL_PRODUCT_ERROR,
         payload: {
           error,
         },
@@ -74,16 +62,16 @@ export function getAllUsers() {
   };
 }
 
-export function addUser(objUser) {
+export function addProduct(objProduct) {
   return async (dispatch) => {
     dispatch({
-      type: ADD_USER_START,
+      type: ADD_PRODUCT_START,
       payload: {
       },
     });
     try {
-      let jsonPost = JSON.stringify(objUser)
-      let url = BASE_URL + '/api/users/add';
+      let jsonPost = JSON.stringify(objProduct)
+      let url = BASE_URL + '/api/product/add';
       const response = await fetch(url, {
         method: 'POST',
         headers:{Accept: 'application/json', 'Content-Type': 'application/json',  },
@@ -92,14 +80,14 @@ export function addUser(objUser) {
       const data = await response.json();
       if (!response.ok) {
         dispatch({
-          type: ADD_USER_ERROR,
+          type: ADD_PRODUCT_ERROR,
           payload: {
             data,
           },
         });
       } else {
         dispatch({
-          type: ADD_USER_SUCESS,
+          type: ADD_PRODUCT_SUCESS,
           payload: {
             data,
           },
@@ -107,7 +95,7 @@ export function addUser(objUser) {
       }
     } catch (error) {
       dispatch({
-        type: ADD_USER_ERROR,
+        type: ADD_PRODUCT_ERROR,
         payload: {
           error,
         },
@@ -119,16 +107,16 @@ export function addUser(objUser) {
 }
 
 
-export function updateUserById(objUser,id) {
+export function updateProductById(objProduct,id) {
   return async (dispatch) => {
     dispatch({
-      type: UDPATE_USER_BYID_START,
+      type: UPDATE_PRODUCT_BYID_START,
       payload: {
       },
     });
     try {
-      let jsonPost = JSON.stringify(objUser)
-      let url = BASE_URL + '/api/users/' + id;
+      let jsonPost = JSON.stringify(objProduct)
+      let url = BASE_URL + '/api/product/' + id;
       const response = await fetch(url, {
         method: 'PUT',
         headers:{Accept: 'application/json', 'Content-Type': 'application/json',  },
@@ -137,14 +125,14 @@ export function updateUserById(objUser,id) {
       const data = await response.json();
       if (!response.ok) {
         dispatch({
-          type: UDPATE_USER_BYID_ERROR,
+          type: UPDATE_PRODUCT_BYID_ERROR,
           payload: {
             data,
           },
         });
       } else {
         dispatch({
-          type: UDPATE_USER_BYID_SUCESS,
+          type: UPDATE_PRODUCT_BYID_SUCESS,
           payload: {
             data,
           },
@@ -152,7 +140,7 @@ export function updateUserById(objUser,id) {
       }
     } catch (error) {
       dispatch({
-        type: UDPATE_USER_BYID_ERROR,
+        type: UPDATE_PRODUCT_BYID_ERROR,
         payload: {
           error,
         },
@@ -164,30 +152,30 @@ export function updateUserById(objUser,id) {
 }
 
 
-export function deleteUserById(id) {
+export function deleteProductById(id) {
   return async (dispatch) => {
     dispatch({
-      type: DELETE_USER_BYID_START,
+      type: DELETE_PRODUCT_BYID_START,
       payload: {
       },
     });
     try {
       
-      let url = BASE_URL + '/api/users/'+ String(id);
+      let url = BASE_URL + '/api/product/'+ String(id);
       const response = await fetch(url, {
         method: 'GET',
       });
       const data = await response.json();
       if (!response.ok) {
         dispatch({
-          type: DELETE_USER_BYID_ERROR,
+          type: DELETE_PRODUCT_BYID_ERROR,
           payload: {
             data,
           },
         });
       } else {
         dispatch({
-          type: DELETE_USER_BYID_SUCESS,
+          type: DELETE_PRODUCT_BYID_SUCESS,
           payload: {
             data,
           },
@@ -195,7 +183,7 @@ export function deleteUserById(id) {
       }
     } catch (error) {
       dispatch({
-        type: DELETE_USER_BYID_ERROR,
+        type: DELETE_PRODUCT_BYID_ERROR,
         payload: {
           error,
         },

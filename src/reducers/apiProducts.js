@@ -1,192 +1,179 @@
 import CrudUserController from '../components/CrudUser/CrudUserController';
 
 import {
-  GET_ALL_USERS_START,
-  GET_ALL_USERS_SUCESS,
-  GET_ALL_USERS_ERROR,
-  ADD_USER_START,
-  ADD_USER_SUCESS,
-  ADD_USER_ERROR,
-  UDPATE_USER_BYID_START,
-  UDPATE_USER_BYID_SUCESS,
-  UDPATE_USER_BYID_ERROR,
-  DELETE_USER_BYID_START,
-  DELETE_USER_BYID_SUCESS,
-  DELETE_USER_BYID_ERROR,
-  CHANGE_ROUTE,
+  GET_ALL_PRODUCT_START,
+  GET_ALL_PRODUCT_SUCESS,
+  GET_ALL_PRODUCT_ERROR,
+  ADD_PRODUCT_START,
+  ADD_PRODUCT_SUCESS,
+  ADD_PRODUCT_ERROR,
+  UPDATE_PRODUCT_BYID_START,
+  UPDATE_PRODUCT_BYID_SUCESS,
+  UPDATE_PRODUCT_BYID_ERROR,
+  DELETE_PRODUCT_BYID_START,
+  DELETE_PRODUCT_BYID_SUCESS,
+  DELETE_PRODUCT_BYID_ERROR,
 } from '../constants/redux'
 
 function getInitialState() {
   //les valeur initiales
   return {
     isFetching: false,
-    users: null,
-    isFetchingAllUsers:false,
-    isFetchingAddUser:false,
-    isFetchingDelUserById:false,
-    isFetchingUpdateUserById:false,
-    route:[{path:'/test',components:CrudUserController}],
+    products: null,
+    isFetchingAllProduct:false,
+    isFetchingAddProduct:false,
+    isFetchingDelProductById:false,
+    isFetchingUpdateProduct:false,
     error: false,
     errorMessage: null,
     returnMessage: null,
   };
 }
 
-export default function apiUsers(state = null, action) {
+export default function apiProduct(state = null, action) {
   if (state === null) {
     return getInitialState();
   }
 
   switch (action.type) {
 
-    case GET_ALL_USERS_START: {
+    case GET_ALL_PRODUCT_START: {
       return {
         ...state,
         isFetching: true,
-        isFetchingAllUsers: true,
+        isFetchingAllProduct: true,
         error: false,
         errorMessage: null,
       };
     }
 
-    case GET_ALL_USERS_SUCESS: {
+    case GET_ALL_PRODUCT_SUCESS: {
       const data = action.payload.data;
       
       return {
         ...state,
         isFetching: false,
-        isFetchingAllUsers: false,
-        users: data,
+        isFetchingAllProduct: false,
+        products: data,
         error: false,
         errorMessage: null,
       };
     }
 
-    case GET_ALL_USERS_ERROR: {
+    case GET_ALL_PRODUCT_ERROR: {
       const data = action.payload.data;
       return {
         ...state,
         isFetching: false,
-        isFetchingAllUsers: false,
+        isFetchingAllProduct: false,
         error: true,
         errorMessage: data,
       };
     }
 
-    case ADD_USER_START: {
+    case ADD_PRODUCT_START: {
       return {
         ...state,
         isFetching: true,
-        isFetchingAddUser: true,
+        isFetchingAddProduct: true,
         error: false,
         errorMessage: null,
       };
     }
 
-    case ADD_USER_SUCESS: {
+    case ADD_PRODUCT_SUCESS: {
       const data = action.payload.data;
       
       return {
         ...state,
         isFetching: false,
-        isFetchingAddUser: false,
+        isFetchingAddProduct: false,
         response: data,
         error: false,
         errorMessage: null,
       };
     }
 
-    case ADD_USER_ERROR: {
+    case ADD_PRODUCT_ERROR: {
       const data = action.payload.data;
       return {
         ...state,
         isFetching: false,
-        isFetchingAddUser: false,
+        isFetchingAddProduct: false,
         error: true,
         errorMessage: data,
       };
     }
 
-    case UDPATE_USER_BYID_START: {
+     case UPDATE_PRODUCT_BYID_START: {
       return {
         ...state,
         isFetching: true,
-        isFetchingUpdateUserById: true,
+        isFetchingUpdateProduct: true,
         error: false,
         errorMessage: null,
       };
     }
 
-    case UDPATE_USER_BYID_SUCESS: {
+    case UPDATE_PRODUCT_BYID_SUCESS: {
       const data = action.payload.data;
       
       return {
         ...state,
         isFetching: false,
-        isFetchingUpdateUserById: false,
+        isFetchingUpdateProduct: false,
         response: data,
         error: false,
         errorMessage: null,
       };
     }
 
-    case UDPATE_USER_BYID_ERROR: {
+    case UPDATE_PRODUCT_BYID_ERROR: {
       const data = action.payload.data;
       return {
         ...state,
         isFetching: false,
-        isFetchingUpdateUserById: false,
+        isFetchingUpdateProduct: false,
         error: true,
         errorMessage: data,
       };
     }
 
-    case DELETE_USER_BYID_START: {
+    case DELETE_PRODUCT_BYID_START: {
       return {
         ...state,
         isFetching: true,
-        isFetchingDelUserById: true,
+        isFetchingDelProductById: true,
         error: false,
         errorMessage: null,
       };
     }
 
-    case DELETE_USER_BYID_SUCESS: {
+    case DELETE_PRODUCT_BYID_SUCESS: {
       const data = action.payload.data;
       
       return {
         ...state,
         isFetching: false,
-        isFetchingDelUserById: false,
+        isFetchingDelProductById: false,
         response: data,
         error: false,
         errorMessage: null,
       };
     }
 
-    case DELETE_USER_BYID_ERROR: {
+    case DELETE_PRODUCT_BYID_ERROR: {
       const data = action.payload.data;
       return {
         ...state,
         isFetching: false,
-        isFetchingDelUserById: false,
+        isFetchingDelProductById: false,
         error: true,
         errorMessage: data,
       };
     }
 
-    case CHANGE_ROUTE: {
-      const data = action.payload.route;
-      let previousStateRoute = state.route;
-      previousStateRoute.push(data);
-      return {
-        ...state,
-        isFetching: false,
-        route:previousStateRoute,
-        error: true,
-        errorMessage: data,
-      };
-    }
+   
     default: {
       return state;
     }

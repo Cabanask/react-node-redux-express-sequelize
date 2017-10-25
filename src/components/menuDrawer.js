@@ -13,13 +13,18 @@ import MenuIcone from 'material-ui/svg-icons/navigation/menu';
 import {
   ROUTE_HOME,
   ROUTE_CRUD_USER,
-} from '../constants/routes';
+} from '../constants/routes';import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllDynamicsRoutes, addDynamicsRoute, deleteDynamicsRouteById } from '../actions/apiDynamicsRouter';
 
-const menuDrawer = React.createClass({
+import * as ConstRoute from '../constants/routes';
+
+const MenuDrawer = React.createClass({
 
   getInitialState:function() {
     return {
       open:false,
+      allRoutes:[],
     }
   },
   componentWillUnmount: function () {
@@ -27,11 +32,11 @@ const menuDrawer = React.createClass({
   },
 
   componentDidMount: function () {
- 
+    this.setState({allRoutes:this.props.apiDynamicsRouter.routes});
   },
 
   componentWillReceiveProps: function (nextProps) {
- 
+    this.setState({allRoutes:nextProps.apiDynamicsRouter.routes});
   },
   handleToggle : function (){
     if(this.state.open === false){
@@ -54,8 +59,13 @@ const menuDrawer = React.createClass({
         disableSwipeToOpen={false}
         onRequestChange={this.handleToggle}
         >
-          <Link onClick={this.handleToggle} to={ROUTE_HOME}><MenuItem>Home</MenuItem></Link>
-          <Link onClick={this.handleToggle} to={ROUTE_CRUD_USER}><MenuItem>CRUD Users</MenuItem></Link>
+        {Object.keys(ConstRoute).map( (key, index) => (
+          <Link onClick={this.handleToggle} to={ConstRoute[key].path}><MenuItem>{ConstRoute[key].name}</MenuItem></Link>
+        ))}
+        {this.state.allRoutes.map( (row, index) => (
+          <Link onClick={this.handleToggle} to={row.path}><MenuItem>{row.name}</MenuItem></Link>
+        ))}
+          
         </Drawer>
       </div>
     );
@@ -64,4 +74,20 @@ const menuDrawer = React.createClass({
 
 
 
-export default menuDrawer;
+function mapStateToProps(state) {
+  
+  return {
+    apiDynamicsRouter: state.apiDynamicsRouter,
+  }
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+     getAllDynamicsRoutes,
+    },
+    dispatch,
+  );
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(MenuDrawer);

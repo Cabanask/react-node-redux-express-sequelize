@@ -7,28 +7,17 @@ import store from './store';
 import Header from './components/header';
 import Home from './components/home';
 import CrudUserController from './components/CrudUser/CrudUserController';
+import BuildRouteReact from './components/BuildRouteReact/BuildRouteReact';
+
 /*Constantes*/
-import {
-	ROUTE_HOME,
-	ROUTE_CRUD_USER,
-} from './constants/routes';
+import * as ConstRoute from './constants/routes';
 /*Other*/
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const Footer = () => <div className="containerFooter"><h1>FOOTER</h1></div>;
+
+let storeState = store.getState();
 
 ReactDOM.render(
-	<Router>
-
-		<MuiThemeProvider>
-		  	<Provider store={store}>
-			    <div>
-				    <Header />
-				    <Route exact path={ROUTE_HOME} component={Home} />
-					<Route exact path={ROUTE_CRUD_USER} component={CrudUserController} />
-				</div>
-		  	</Provider>
-	  	</MuiThemeProvider>
-  	</Router>,
+	<BuildRouteReact store={store}/>,
   document.getElementById('container'),
 );
